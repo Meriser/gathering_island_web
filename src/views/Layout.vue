@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import {
-  Menu as IconMenu,
-  HomeFilled,
-  User,
-  Setting,
-  Back,
-} from "@element-plus/icons-vue";
-import SvgMenu from "@/components/svg/SvgMenu.vue";
+import { HomeFilled, User } from "@element-plus/icons-vue";
+import dayjs from "dayjs";
 
 const router = useRouter();
-const isCollapse = ref(false);
 
 // Menu 配置，導航至對應頁面
 const menuItems = ref([
@@ -25,118 +18,63 @@ const menuItems = ref([
     icon: User,
     to: "/users",
   },
-  {
-    title: "設置",
-    icon: Setting,
-    to: "/settings",
-  },
 ]);
 
-// 切換側邊欄收合狀態
-const handleToggleCollapse = () => {
-  isCollapse.value = !isCollapse.value;
-};
-
-// 返回上一頁
-const handleGoBack = () => {
-  router.go(-1);
-};
+// 取得當前年份
+const currentYear = ref<number>(dayjs().year());
 
 // 處理菜單選擇
-const handleMenuSelect = (to: string) => {
-  router.push(to);
+const navigateTo = (path: string) => {
+  router.push(path);
 };
 </script>
 
 <template>
-  <div class="h-screen flex">
-    <!-- 左側導航選單 -->
-    <el-aside
-      :width="isCollapse ? '64px' : '220px'"
-      class="bg-gray-800 transition-all duration-300"
+  <div class="flex flex-col min-h-screen">
+    <!-- 頂部 Header -->
+    <header
+      class="min-h-[64px] bg-primary text-white flex items-center justify-between px-4 shadow-md"
     >
-      <!-- Logo 區域和收合按鈕 -->
-      <div class="h-16 flex items-center justify-between pl-[22px] bg-gray-900">
-        <div class="flex items-center text-white">
-          <el-icon class="mr-2" :size="20">
-            <IconMenu />
-          </el-icon>
-          <span
-            v-if="!isCollapse"
-            class="text-lg font-semibold whitespace-nowrap"
-            >後台系統</span
-          >
+      <!-- Header: 左側 Logo / 右側選單導航 -->
+      <div class="flex items-center w-full justify-between">
+        <!-- 左側 Logo -->
+        <div
+          class="flex items-center cursor-pointer hover-opacity"
+          @click="navigateTo('/')"
+        >
+          <img src="/public/logo.svg" alt="Logo" class="w-[48px]" />
+          <h1 class="flex gap-3 leading-tight text-xl">
+            <span class="font-extrabold text-[#37c6d0]">GATHER</span>
+            <span class="font-extrabold text-[#05223d]">ISLAND</span>
+          </h1>
         </div>
+        <!-- 右側選單導航 -->
+        <nav class="flex items-center gap-6">
+          <button
+            v-for="item in menuItems"
+            :key="item.to"
+            @click="navigateTo(item.to)"
+            class="bg-transparent text-white hover:text-yellow-300 px-3 py-2 rounded transition-colors flex items-center gap-1"
+          >
+            <component :is="item.icon" class="w-5 h-5" />
+            <span>{{ item.title }}</span>
+          </button>
+        </nav>
       </div>
+    </header>
 
-      <!-- 選單列表 -->
-      <el-menu
-        :default-active="router.currentRoute.value.path"
-        :collapse="isCollapse"
-        :collapse-transition="false"
-        background-color="#1f2937"
-        text-color="#ffffff"
-        active-text-color="#fff"
-        @select="handleMenuSelect"
-        class="border-none"
-      >
-        <el-menu-item v-for="item in menuItems" :key="item.to" :index="item.to">
-          <el-icon><component :is="item.icon" /></el-icon>
-          <template #title class="whitespace-nowrap">
-            {{ item.title }}
-          </template>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
+    <!-- 主要內容區域，flex-1 讓內容區域自動撐滿高度 -->
+    <el-main class="bg-gray-100 overflow-auto flex-1">
+      <RouterView />
+    </el-main>
 
-    <!-- 右側內容區域 -->
-    <el-container class="flex-1">
-      <!-- 頂部 App Bar -->
-      <el-header
-        class="min-h-[64px] bg-primary text-white flex items-center justify-between px-4 shadow-md"
-      >
-        <!-- 左側收合按鈕 -->
-        <div class="flex items-center text-lg font-semibold">
-          <el-button
-            class="w-[32px] bg-transparent hover:bg-transparent"
-            @click="handleToggleCollapse"
-            :title="isCollapse ? '展開選單' : '收合選單'"
-          >
-            <el-icon :size="24" class="text-white">
-              <SvgMenu :width="24" :height="24" />
-            </el-icon>
-          </el-button>
-        </div>
-
-        <!-- 右側操作按鈕 -->
-        <div class="flex items-center gap-2">
-          <el-button
-            circle
-            text
-            @click="handleGoBack"
-            title="返回上一頁"
-            class="group transition-all duration-200"
-          >
-            <el-icon
-              class="text-white group-hover:text-primary transition-all duration-200"
-              :size="24"
-            >
-              <Back />
-            </el-icon>
-          </el-button>
-        </div>
-      </el-header>
-
-      <!-- 主要內容區域 -->
-      <el-main class="bg-gray-100 overflow-auto">
-        <RouterView />
-      </el-main>
-    </el-container>
+    <!-- 底部 Footer -->
+    <footer class="bg-secondary flex justify-center items-center">
+      <strong class="text-white py-4">
+        Copyright © {{ currentYear }} Gathering Island All Rights Reserved
+      </strong>
+    </footer>
   </div>
 </template>
 
-<style scoped>
-:deep(.el-menu-item.is-active) {
-  background-color: var(--color-primary);
-}
-</style>
+<style scoped></style>
