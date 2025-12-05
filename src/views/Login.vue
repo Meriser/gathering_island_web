@@ -68,7 +68,7 @@ const login = handleSubmit(async (values) => {
 
 <template>
   <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-50 to-slate-100 p-4"
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-50 to-slate-100 bg-[url('/public/images/island_bg.jpg')] bg-cover bg-center p-4"
   >
     <div class="w-full max-w-[440px]">
       <el-card shadow="always" class="rounded-xl">
