@@ -1,9 +1,20 @@
-// 範例：登入請求 Type
+// 登入 Request
 export type LoginRequest = {
-  account: string;
+  email: string;
   password: string;
 }
-// 範例：登入回應 Type
+
+// 登入 Response
 export type LoginResponse = {
-  token: string;
+  result: string;  
+  payload: {
+    sub: number;
+    email: string;
+    username: string;
+    role: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  accessToken: string;
+  refreshToken: string;
 }
