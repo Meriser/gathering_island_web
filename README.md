@@ -33,14 +33,21 @@ npm install -g pnpm
 pnpm install
 ```
 
-### 3. 配置環境變數
+### 3. 環境變數
 
-在專案根目錄創建 `.env.dev` 和 `.env.prod` 檔案：
+環境變數檔案分為開發（dev）和生產（prod）兩種， 
+`.env.dev`（開發環境）與 `.env.prod`（生產環境）檔案。
+可根據不同環境設置專屬變數，例如 API 網址：
 
 ```env
-VITE_APP_TITLE=Gathering Island
+# .env.dev 開發環境
 VITE_API_BASE_URL=http://localhost:5173/api
+
+# .env.prod 生產環境
+VITE_API_BASE_URL=https://your-production-domain.com/api
 ```
+
+每次啟動對應環境時，自動載入相應 env 檔案，實現不同配置。
 
 ### 4. 啟動開發
 
