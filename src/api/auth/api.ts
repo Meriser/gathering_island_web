@@ -10,7 +10,7 @@ import ApiHandleError from "@/utils/apiHandleError";
 export async function login(req: LoginRequest) {
   try {
     const res: AxiosResponse<ApiResponse<LoginResponse>> = await AXIOS.post(
-      AuthPath.LOGIN,
+      AuthPath.AUTH_LOGIN,
       req
     );
     return res.data.data;
