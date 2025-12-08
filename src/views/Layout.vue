@@ -42,7 +42,7 @@ const navigateTo = (path: string) => {
           class="flex items-center cursor-pointer hover-opacity"
           @click="navigateTo('/')"
         >
-          <img src="/public/logo.svg" alt="Logo" class="w-[48px]" />
+          <img src="/logo.svg" alt="Logo" class="w-[48px]" />
           <h1 class="flex gap-3 leading-tight text-xl">
             <span class="font-extrabold text-[#37c6d0]">GATHER</span>
             <span class="font-extrabold text-[#05223d]">ISLAND</span>
