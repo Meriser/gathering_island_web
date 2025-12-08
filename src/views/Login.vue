@@ -8,6 +8,9 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { loginSchema, type LoginFormData } from "@/schemas/auth";
 import VeeInput from "@/components/vee/VeeInput.vue";
 import useAlert from "@/hooks/useAlert";
+import { login } from "@/api/auth/api";
+import type { LoginRequest, LoginResponse } from "@/types/auth";
+import Button from "@/components/Button.vue";
 
 // 使用 alert 提示
 const { showAlert } = useAlert();
@@ -21,31 +24,38 @@ const authStore = useAuthStore();
 // 使用 vee-validate + zod
 const { handleSubmit } = useForm<LoginFormData>({
   initialValues: {
-    account: "",
+    email: "",
     password: "",
   },
   validationSchema: toTypedSchema(loginSchema),
 });
 
+// 回首頁
+const handleGoHome = () => {
+  router.push("/");
+};
+
 // 登入邏輯
-const login = handleSubmit(async (values) => {
+const handleLogin = handleSubmit(async (values: LoginFormData) => {
+  // login 請求參數
+  const req: LoginRequest = { ...values };
+  // 錯誤訊息
   error.value = null;
+  // 載入中
   loading.value = true;
 
   try {
-    // 模擬 API 呼叫延遲
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    if (values.account === "admin" && values.password === "admin") {
-      const mockToken = `token_${Date.now()}_${Math.random()
-        .toString(36)
-        .substring(7)}`;
-      authStore.setToken(mockToken);
-      // 登入成功後，導向首頁
+    // 登入 API 呼叫
+    const res: LoginResponse = await login(req);
+    // 登入成功
+    if (res.result === "success" && res.accessToken) {
+      // 設置 token
+      authStore.setToken(res.accessToken);
+      // 導向首頁
       router.push("/");
       // 顯示登入成功訊息
       showAlert({
-        title: "登入成功!",
+        title: "登入成功",
         icon: "success",
         timer: 3000,
         timerProgressBar: true,
@@ -55,8 +65,6 @@ const login = handleSubmit(async (values) => {
         showConfirmButton: false,
         showCancelButton: false,
       });
-    } else {
-      error.value = "帳號或密碼錯誤";
     }
   } catch (e: any) {
     error.value = e.message || "登入失敗，請稍後再試";
@@ -67,60 +75,87 @@ const login = handleSubmit(async (values) => {
 </script>
 
 <template>
+  <!-- 外層：背景圖片容器 -->
   <div
-    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-50 to-slate-100 bg-[url('/public/images/island_bg.jpg')] bg-cover bg-center p-4"
+    class="min-h-screen bg-[url('/images/island_bg.jpg')] bg-cover bg-center relative"
   >
-    <div class="w-full max-w-[440px]">
-      <el-card shadow="always" class="rounded-xl">
-        <template #header>
-          <h2 class="text-center py-2 text-2xl md:text-3xl font-bold text-primary">
-            聚會島
-          </h2>
-        </template>
+    <!-- 漸層覆蓋層：半透明 -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
 
-        <el-form @submit.prevent="login">
-          <VeeInput
-            name="account"
-            label="帳號"
-            placeholder="請輸入帳號"
-            type="text"
-            size="large"
-            inputClass="w-full"
-            :prefix-icon="User"
-            required
-          />
+    <!-- 內容層 -->
+    <div
+      class="min-h-screen flex items-center justify-center p-4 relative z-10"
+    >
+      <div class="w-full max-w-[440px]">
+        <el-card shadow="always" class="rounded-xl">
+          <template #header>
+            <figure>
+              <!-- 回首頁圖片 -->
+              <img
+                @click="handleGoHome"
+                class="cursor-pointer w-[220px] mx-auto"
+                src="/logo_title.svg"
+                alt="Logo"
+              />
+            </figure>
+          </template>
 
-          <VeeInput
-            name="password"
-            label="密碼"
-            placeholder="請輸入密碼"
-            type="password"
-            size="large"
-            inputClass="w-full"
-            :prefix-icon="Lock"
-            required
-          />
+          <el-form @submit.prevent="handleLogin" class="py-4 px-8">
+            <VeeInput
+              name="email"
+              label="信箱"
+              placeholder="請輸入信箱"
+              type="email"
+              size="large"
+              inputClass="w-full"
+              :prefix-icon="User"
+              required
+            />
 
-          <el-alert
-            v-if="error"
-            :title="error"
-            type="error"
-            :closable="false"
-            show-icon
-            class="mb-4"
-          />
+            <VeeInput
+              name="password"
+              label="密碼"
+              placeholder="請輸入密碼"
+              type="password"
+              size="large"
+              inputClass="w-full"
+              :prefix-icon="Lock"
+              required
+            />
 
-          <el-button
-            type="primary"
-            size="large"
-            native-type="submit"
-            :loading="loading"
-            class="w-full font-semibold"
-          >
-            {{ loading ? "登入中..." : "登入" }}
-          </el-button>
-        </el-form>
-      </el-card>
+            <el-alert
+              v-if="error"
+              :title="error"
+              type="error"
+              :closable="true"
+              show-icon
+            />
+
+            <!-- 操作按鈕區域 -->
+            <div class="flex gap-4 mt-8">
+              <!-- 探索按鈕 -->
+              <Button
+                type="primary"
+                size="large"
+                class="w-full rounded-full text-xl"
+                plain
+              >
+                探索
+              </Button>
+              <!-- 登入按鈕 -->
+              <Button
+                type="primary"
+                size="large"
+                native-type="submit"
+                :loading="loading"
+                class="w-full rounded-full text-xl"
+              >
+                {{ loading ? "登入中..." : "登入" }}
+              </Button>
+            </div>
+          </el-form>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>

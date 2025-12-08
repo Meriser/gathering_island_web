@@ -1,5 +1,4 @@
-export type ApiResponse<T> = {
-  code: number;
-  message: string;
-  data: T;
+// API 通用 Response
+export type ApiResponse = {
+  result: string;
 }
