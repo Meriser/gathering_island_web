@@ -24,96 +24,87 @@ function logout() {
 </script>
 
 <template>
-  <div class="py-10 px-4">
-    <div class="max-w-4xl mx-auto">
-      <el-card shadow="hover">
-        <template #header>
-          <div class="flex justify-between items-center">
-            <span class="text-xl font-bold">後台首頁</span>
-            <el-button
-              type="danger"
-              size="small"
-              :icon="SwitchButton"
-              @click="logout"
-            >
-              登出
-            </el-button>
+  <div
+    class="min-h-screen bg-[url('/images/island_bg.jpg')] bg-cover bg-center bg-fixed"
+  >
+  <!-- 介紹卡片 -->
+    <section class="max-w-5xl mx-auto py-6 px-3 sm:px-8">
+      <el-card shadow="hover" class="bg-white/90 backdrop-blur">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+          <!-- Banner / Illustration -->
+          <div class="flex-1 flex justify-center md:justify-start mb-6 md:mb-0">
+            <img
+              src="/images/events/MUSIC.jpg"
+              alt="聚會島主題插畫"
+              class="w-full drop-shadow-lg"
+            />
           </div>
-        </template>
-
-        <div class="space-y-4">
-          <el-alert
-            title="歡迎來到後台管理系統！"
-            type="info"
-            :closable="false"
-          />
-
-          <div class="flex flex-wrap gap-2">
-            <el-button
-              type="primary"
-              :icon="User"
-              @click="openDialog('user')"
-            >
-              用戶管理
-            </el-button>
-            <el-button
-              :icon="Setting"
-              @click="openDialog('settings')"
-            >
-              設定管理
-            </el-button>
-            <el-button
-              type="success"
-              :icon="Document"
-              @click="openDialog('reports')"
-            >
-              報表查看
-            </el-button>
+          <!-- 內容 -->
+          <div class="flex-1 min-w-0">
+            <h2 class="font-bold text-2xl sm:text-3xl text-[#37c6d0] mb-2 tracking-tight">
+              歡迎來到聚會島 Gathering Island
+            </h2>
+            <p class="text-base sm:text-lg text-gray-700 mb-4">
+              聚會島是一個專為活動、聚會、共學而設計的線上平台，讓你輕鬆創建、邀請、協作與管理不同形式的活動。
+              <br class="hidden sm:block" />
+              無論是團隊討論、社群聚會還是主題講座，都能在這裡找到最適合你的空間。
+            </p>
+            <div class="grid gap-3 mb-6 sm:grid-cols-2">
+              <div class="flex items-start gap-3">
+                <el-icon class="text-[#37c6d0] w-7 h-7"><User /></el-icon>
+                <div>
+                  <div class="font-semibold">多元活動管理</div>
+                  <div class="text-gray-600 text-sm">簡單創建、瀏覽與管理各類聚會活動</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <el-icon class="text-[#ffd666] w-7 h-7"><Setting /></el-icon>
+                <div>
+                  <div class="font-semibold">自由設定</div>
+                  <div class="text-gray-600 text-sm">豐富設定、權限管控，滿足不同會議需求</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <el-icon class="text-[#4bdb74] w-7 h-7"><Document /></el-icon>
+                <div>
+                  <div class="font-semibold">即時資源分享</div>
+                  <div class="text-gray-600 text-sm">活動文檔、報表即時上傳與下載</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <el-icon class="text-[#fb4747] w-7 h-7"><SwitchButton /></el-icon>
+                <div>
+                  <div class="font-semibold">安全登入登出</div>
+                  <div class="text-gray-600 text-sm">保障資料安全，確保每位用戶隱私</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <el-button
+                type="primary"
+                size="large"
+                @click="$router.push('/event/list')"
+                class="w-full sm:w-auto"
+              >
+                <el-icon class="mr-1"><Document /></el-icon>
+                活動列表
+              </el-button>
+              <el-button
+                type="info"
+                size="large"
+                @click="logout"
+                class="w-full sm:w-auto"
+              >
+                <el-icon class="mr-1"><SwitchButton /></el-icon>
+                登出
+              </el-button>
+            </div>
           </div>
         </div>
       </el-card>
-
-      <!-- 用戶管理 Dialog -->
-      <el-dialog
-        v-model="dialog.user"
-        title="用戶管理"
-        width="400"
-      >
-        <p>這裡將顯示用戶管理相關資訊。</p>
-        <template #footer>
-          <el-button type="primary" @click="dialog.user = false">
-            關閉
-          </el-button>
-        </template>
-      </el-dialog>
-
-      <!-- 設定管理 Dialog -->
-      <el-dialog
-        v-model="dialog.settings"
-        title="設定管理"
-        width="400"
-      >
-        <p>這裡將顯示設定管理相關功能。</p>
-        <template #footer>
-          <el-button type="primary" @click="dialog.settings = false">
-            關閉
-          </el-button>
-        </template>
-      </el-dialog>
-
-      <!-- 報表查看 Dialog -->
-      <el-dialog
-        v-model="dialog.reports"
-        title="報表查看"
-        width="400"
-      >
-        <p>這裡將顯示報表相關資訊。</p>
-        <template #footer>
-          <el-button type="primary" @click="dialog.reports = false">
-            關閉
-          </el-button>
-        </template>
-      </el-dialog>
-    </div>
+      <div class="mt-8 text-gray-500 text-center text-xs">
+        本服務目前處於測試階段，歡迎各位夥伴體驗與回饋建議，讓聚會島更好用！
+      </div>
+    </section>
   </div>
 </template>
