@@ -3,6 +3,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { HomeFilled, User } from "@element-plus/icons-vue";
 import dayjs from "dayjs";
+import { Calendar } from "@element-plus/icons-vue";
+import EventList from "@/views/event/EventList.vue";
+
 
 const router = useRouter();
 
@@ -14,9 +17,9 @@ const menuItems = ref([
     to: "/",
   },
   {
-    title: "用戶管理",
-    icon: User,
-    to: "/users",
+    title: "活動列表",
+    icon: Calendar,
+    to: "/event/list",
   },
 ]);
 
