@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@tanstack/vue-query": "^5.92.1",
+    "@tanstack/vue-query-devtools": "^6.1.2",
     "@vee-validate/zod": "^4.13.0",
     "@vueuse/core": "^14.0.0",
     "@vueuse/integrations": "^14.0.0",

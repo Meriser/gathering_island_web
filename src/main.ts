@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 // 建立 Vue 應用程式
 const app = createApp(App);
@@ -25,3 +26,6 @@ app.use(ElementPlus, {
   locale: zhTw, // 設定語言為繁體中文
 });
 app.mount('#app')
+
+// Vue Query 全域引用
+app.use(VueQueryPlugin)
