@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { User, Lock } from "@element-plus/icons-vue";
@@ -8,69 +7,57 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { loginSchema, type LoginFormData } from "@/schemas/auth";
 import VeeInput from "@/components/vee/VeeInput.vue";
 import useAlert from "@/hooks/useAlert";
-import { login } from "@/api/auth/api";
-import type { LoginRequest, LoginResponse } from "@/types/auth";
+import type { LoginResponse } from "@/types/auth";
 import Button from "@/components/Button.vue";
+import { useLogin } from "@/api/auth/hook";
 
-// 使用 alert 提示
-const { showAlert } = useAlert();
-
-const loading = ref(false);
-const error = ref<string | null>(null);
-
+// 路由
 const router = useRouter();
-const authStore = useAuthStore();
-
-// 使用 vee-validate + zod
-const { handleSubmit } = useForm<LoginFormData>({
-  initialValues: {
-    email: "",
-    password: "",
-  },
-  validationSchema: toTypedSchema(loginSchema),
-});
-
 // 回首頁
 const handleGoHome = () => {
   router.push("/");
 };
 
-// 登入邏輯
-const handleLogin = handleSubmit(async (values: LoginFormData) => {
-  // login 請求參數
-  const req: LoginRequest = { ...values };
-  // 錯誤訊息
-  error.value = null;
-  // 載入中
-  loading.value = true;
+// 認證 store
+const authStore = useAuthStore();
+// 使用 alert 提示
+const { showAlert } = useAlert();
 
-  try {
-    // 登入 API 呼叫
-    const res: LoginResponse = await login(req);
-    // 登入成功
-    if (res.result === "success" && res.accessToken) {
-      // 設置 token
-      authStore.setToken(res.accessToken);
-      // 導向首頁
-      router.push("/");
-      // 顯示登入成功訊息
-      showAlert({
-        title: "登入成功",
-        icon: "success",
-        timer: 3000,
-        timerProgressBar: true,
-        toast: true,
-        position: "bottom-end",
-        showCloseButton: true,
-        showConfirmButton: false,
-        showCancelButton: false,
-      });
-    }
-  } catch (e: any) {
-    error.value = e.message || "登入失敗，請稍後再試";
-  } finally {
-    loading.value = false;
+// 登入成功
+const successLogin = (res: LoginResponse) => {
+  // API 回應成功，並且帶有 token
+  if (res.result === "success" && res.accessToken) {
+    // 設置 token
+    authStore.setToken(res.accessToken);
+    // 顯示成功提示
+    showAlert({
+      title: "登入成功",
+      icon: "success",
+      timer: 3000,
+      timerProgressBar: true,
+      toast: true,
+      position: "bottom-end",
+      showCloseButton: true,
+      showConfirmButton: false,
+      showCancelButton: false,
+    });
+    // 導向首頁
+    handleGoHome();
   }
+};
+
+// 使用 vee-validate + zod
+const { handleSubmit } = useForm<LoginFormData>({
+  initialValues: { email: "", password: "" },
+  validationSchema: toTypedSchema(loginSchema),
+});
+
+// 使用 TanStack Query Hook 登入
+const { mutate, isPending, error } = useLogin(successLogin);
+
+// 處理登入表單提交
+const handleLogin = handleSubmit((values) => {
+  mutate(values);
 });
 </script>
 
@@ -123,9 +110,10 @@ const handleLogin = handleSubmit(async (values: LoginFormData) => {
               required
             />
 
+            <!-- 錯誤提示 -->
             <el-alert
-              v-if="error"
-              :title="error"
+              v-if="error?.message"
+              :title="error?.message"
               type="error"
               :closable="true"
               show-icon
@@ -147,10 +135,10 @@ const handleLogin = handleSubmit(async (values: LoginFormData) => {
                 type="primary"
                 size="large"
                 native-type="submit"
-                :loading="loading"
+                :loading="isPending"
                 class="w-full rounded-full text-xl"
               >
-                {{ loading ? "登入中..." : "登入" }}
+                {{ isPending ? "登入中..." : "登入" }}
               </Button>
             </div>
           </el-form>
