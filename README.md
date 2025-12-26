@@ -11,6 +11,7 @@ Gathering Island 是一款專為活動打造的網頁平台。只需完成註冊
 - **Vue Router** - 路由與權限守衛
 - **Vee-Validate + Zod** - 表單驗證
 - **Axios** - HTTP 請求
+- **TanStack Query** - 服務器狀態管理
 - **Day.js** - 日期處理
 - **SweetAlert2** - 彈窗提示
 
@@ -244,6 +245,7 @@ git commit -m "chore: 升級 vite 至 5.0"
 - [Pinia](https://pinia.vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
+- [TanStack Query](https://tanstack.com/)
 
 ---
 
