@@ -42,10 +42,10 @@ pnpm install
 
 ```env
 # .env.dev 開發環境
-VITE_API_BASE_URL=http://localhost:5173/api
+VITE_API_BASE_URL=http://localhost:8080/api
 
 # .env.prod 生產環境
-VITE_API_BASE_URL=https://your-production-domain.com/api
+VITE_API_BASE_URL=https://gathering-island.onrender.com/api
 ```
 
 每次啟動對應環境時，自動載入相應 env 檔案，實現不同配置。
@@ -60,7 +60,7 @@ pnpm dev
 pnpm prod
 ```
 
-預設運行於 `http://localhost:5173`
+預設運行於 `http://localhost:8080`
 
 ### 5. 構建專案
 
