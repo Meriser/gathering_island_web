@@ -33,6 +33,7 @@ export type SearchGatheringsRequest = {
   status?: GatheringsStatusEnum; // 聚會狀態
   type?: GatheringsTypeEnum; // 聚會類型
   isArchived?: boolean; // 是否已刪除
+  search?: string; // 搜尋關鍵字
   tags?: string[]; // 標籤
 };
 // 搜尋聚會 Response
