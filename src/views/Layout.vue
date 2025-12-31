@@ -4,7 +4,6 @@ import { useRouter } from "vue-router";
 import { HomeFilled, User } from "@element-plus/icons-vue";
 import dayjs from "dayjs";
 import { Calendar } from "@element-plus/icons-vue";
-import EventList from "@/views/event/EventList.vue";
 
 
 const router = useRouter();
