@@ -25,7 +25,11 @@ app.use(router);
 app.use(ElementPlus, {
   locale: zhTw, // 設定語言為繁體中文
 });
-app.mount('#app')
 
 // Vue Query 全域引用
-app.use(VueQueryPlugin)
+app.use(VueQueryPlugin, {
+  enableDevtoolsV6Plugin: true,
+});
+
+// 掛載 Vue 應用程式
+app.mount('#app')
