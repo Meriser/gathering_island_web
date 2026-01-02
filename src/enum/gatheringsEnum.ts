@@ -37,3 +37,16 @@ export const GatheringsTypeOptions: OptionType<GatheringsTypeEnum>[] = [
   { label: "美食", value: GatheringsTypeEnum.FOOD },
   { label: "其他", value: GatheringsTypeEnum.OTHER },
 ];
+
+// 聚會類型圖片路徑 enum
+export enum GatheringsTypeImageEnum {
+  PARTY = "/images/events/PARTY.jpg",           // 派對
+  MUSIC = "/images/events/MUSIC.jpg",           // 音樂
+  LEARNING = "/images/events/LEARNING.jpg",     // 學習
+  EXHIBITION = "/images/events/EXHIBITION.jpg", // 展覽
+  TRAVEL = "/images/events/TRAVEL.jpg",         // 旅遊
+  SPORTS = "/images/events/SPORTS.jpg",         // 運動
+  GAME = "/images/events/GAME.jpg",             // 遊戲
+  FOOD = "/images/events/FOOD.jpg",             // 美食
+  OTHER = "/images/events/OTHER.jpg",           // 其他
+}
