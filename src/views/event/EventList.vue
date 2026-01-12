@@ -13,6 +13,7 @@ import {
 } from "@/enum/gatheringsEnum";
 import Loading from "@/components/Loading.vue";
 import Card from "@/components/Card.vue";
+import { getFormatTime } from "@/utils/dayjsHelper";
 
 // 搜尋聚會 Request
 const request = ref<SearchGatheringsRequest>({
@@ -25,13 +26,17 @@ const request = ref<SearchGatheringsRequest>({
 });
 
 // 搜尋聚會 API 串接
-const { data, isLoading, error } = useGetSearchGatherings(request.value);
+const { data, isLoading } = useGetSearchGatherings(request.value);
 </script>
 
 <template>
   <div class="container mx-auto">
-    <h2 class="text-2xl font-bold text-center mb-4">活動一覽</h2>
+    <h2 class="text-3xl font-bold text-center text-primary my-6">
+      活動一覽
+    </h2>
+    <!-- 載入中 -->
     <Loading v-if="isLoading" />
+    <!-- 顯示資料區域 -->
     <div
       v-else-if="data?.gatheringData && data?.gatheringData.length > 0"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
@@ -41,7 +46,7 @@ const { data, isLoading, error } = useGetSearchGatherings(request.value);
         :key="item.id"
         :id="item.id"
         :title="item.title"
-        :date-time="item.startTime"
+        :date-time="getFormatTime(item.startTime, 'YYYY/MM/DD HH:mm')"
         :image-url="GatheringsTypeImageEnum[item.type]"
       />
     </div>
