@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getFormatDay } from "@/utils/dayjsHelper";
 import Button from "@/components/Button.vue";
 
 const props = withDefaults(
@@ -34,7 +33,7 @@ const emit = defineEmits<{
     <!-- 標題 -->
     <h3 class="text-lg font-bold mb-2">{{ title }}</h3>
     <!-- 時間 -->
-    <p class="text-sm text-gray-500">{{ getFormatDay(dateTime) }}</p>
+    <p class="text-sm text-gray-500">{{ dateTime }}</p>
     <!-- 按鈕 -->
     <div class="flex justify-end">
       <Button
