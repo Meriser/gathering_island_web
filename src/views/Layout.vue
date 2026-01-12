@@ -66,7 +66,7 @@ const navigateTo = (path: string) => {
     </header>
 
     <!-- 主要內容區域，flex-1 讓內容區域自動撐滿高度 -->
-    <el-main class="bg-gray-100 overflow-auto flex-1">
+    <el-main class="bg-gray-100 overflow-auto flex-1 p-0">
       <RouterView />
     </el-main>
 
