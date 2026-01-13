@@ -6,7 +6,8 @@ export default {
       colors: {
         // 全大寫 DEFAULT 為預設值，使用時 bg-primary 即可
         primary: {
-          DEFAULT: "#925D24",
+          light: "#F7D6A9",
+          DEFAULT: "#C49B5C",
         },
         secondary: {
           DEFAULT: "#4E342E",
