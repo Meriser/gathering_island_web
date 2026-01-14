@@ -8,29 +8,48 @@ export default {
         primary: {
           light: "#F7D6A9",
           DEFAULT: "#C49B5C",
+          dark: "#9C7A49"
         },
         secondary: {
-          DEFAULT: "#4E342E",
+          light: "#B9834C",
+          DEFAULT: "#925D24",
+          dark: "#5E3C23"
         },
         info: {
-          DEFAULT: "#2196F3",
+          light: "#BAA889",    
+          DEFAULT: "#8B7355",  
+          dark: "#5D4932"      
         },
         success: {
+          light: "#80E27E",
           DEFAULT: "#4CAF50",
+          dark: "#087F23"
         },
         warning: {
+          light: "#FFE082",
           DEFAULT: "#FFC107",
+          dark: "#C79100"
         },
         danger: {
+          light: "#FF867F",
           DEFAULT: "#FF5252",
+          dark: "#C50E29"
         },
-        light: {
+        white: {
+          light: "#FFFFFF",
           DEFAULT: "#F5F5F5",
+          dark: "#CCCCCC"
         },
-        dark: {
+        black: {
+          light: "#484848",
           DEFAULT: "#212121",
+          dark: "#000000"
         },
       },
+    },
+    backgroundImage: {
+      'coffee_bg': "url('/images/coffee_bg.png')",
+      'island_bg': "url('/images/island_bg.jpg')",
     },
   },
   plugins: [],
