@@ -64,7 +64,7 @@ const handleLogin = handleSubmit((values) => {
 <template>
   <!-- 外層：背景圖片容器 -->
   <div
-    class="min-h-screen bg-[url('/images/island_bg.jpg')] bg-cover bg-center relative"
+    class="min-h-screen bg-island_bg bg-cover bg-center relative"
   >
     <!-- 漸層覆蓋層：半透明 -->
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
