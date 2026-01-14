@@ -30,25 +30,27 @@ const { data, isLoading } = useGetSearchGatherings(request.value);
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <h2 class="text-3xl font-bold text-center text-primary my-6">
-      活動一覽
-    </h2>
-    <!-- 載入中 -->
-    <Loading v-if="isLoading" />
-    <!-- 顯示資料區域 -->
-    <div
-      v-else-if="data?.gatheringData && data?.gatheringData.length > 0"
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-    >
-      <Card
-        v-for="item in data?.gatheringData"
-        :key="item.id"
-        :id="item.id"
-        :title="item.title"
-        :date-time="getFormatTime(item.startTime, 'YYYY/MM/DD HH:mm')"
-        :image-url="GatheringsTypeImageEnum[item.type]"
-      />
+  <div class="bg-coffee_bg">
+    <div class="container mx-auto py-6">
+      <h2 class="text-3xl font-bold text-center text-secondary-dark mb-6">
+        活動一覽
+      </h2>
+      <!-- 載入中 -->
+      <Loading v-if="isLoading" />
+      <!-- 顯示資料區域 -->
+      <div
+        v-else-if="data?.gatheringData && data?.gatheringData.length > 0"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+      >
+        <Card
+          v-for="item in data?.gatheringData"
+          :key="item.id"
+          :id="item.id"
+          :title="item.title"
+          :date-time="getFormatTime(item.startTime, 'YYYY/MM/DD HH:mm')"
+          :image-url="GatheringsTypeImageEnum[item.type]"
+        />
+      </div>
     </div>
   </div>
 </template>
