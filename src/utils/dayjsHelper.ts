@@ -39,3 +39,14 @@ export const getFormatTime = (
 ) => {
   return dayjs(date).format(formatString);
 };
+
+// 格式化時間字串 + 星期
+export const getFormatTimeAndWeek = (date: string) => {
+  return (
+    getFormatTime(date, "YYYY/MM/DD") +
+    " 星期" +
+    "日一二三四五六".charAt(dayjs(date).day()) +
+    " " +
+    getFormatTime(date, "HH:mm")
+  );
+};
