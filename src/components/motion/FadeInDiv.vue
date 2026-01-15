@@ -11,8 +11,8 @@ interface Props {
 
 // 設定預設值
 const props = withDefaults(defineProps<Props>(), {
-  y: 30,
-  duration: 0.5,
+  y: 20,
+  duration: 0.3,
   delay: 0,
 });
 
