@@ -35,16 +35,6 @@ export default {
           DEFAULT: "#FF5252",
           dark: "#C50E29"
         },
-        white: {
-          light: "#FFFFFF",
-          DEFAULT: "#F5F5F5",
-          dark: "#CCCCCC"
-        },
-        black: {
-          light: "#484848",
-          DEFAULT: "#212121",
-          dark: "#000000"
-        },
       },
     },
     backgroundImage: {

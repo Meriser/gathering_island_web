@@ -22,7 +22,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <el-card class="card-border group bg-white-light">
+  <el-card class="card-border group bg-white">
     <!-- 圖片 -->
     <figure class="overflow-hidden rounded-md">
       <img

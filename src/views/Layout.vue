@@ -5,7 +5,6 @@ import { HomeFilled, User } from "@element-plus/icons-vue";
 import dayjs from "dayjs";
 import { Calendar } from "@element-plus/icons-vue";
 
-
 const router = useRouter();
 
 // Menu 配置，導航至對應頁面
@@ -35,7 +34,7 @@ const navigateTo = (path: string) => {
   <div class="flex flex-col min-h-screen">
     <!-- 頂部 Header -->
     <header
-      class="min-h-[64px] bg-primary text-white flex items-center justify-between px-4 shadow-md"
+      class="min-h-[64px] fixed top-0 w-full z-50 bg-primary text-white flex items-center justify-between px-4 shadow-md"
     >
       <!-- Header: 左側 Logo / 右側選單導航 -->
       <div class="flex items-center w-full justify-between">
@@ -46,8 +45,8 @@ const navigateTo = (path: string) => {
         >
           <img src="/logo.svg" alt="Logo" class="w-[48px]" />
           <h1 class="flex gap-3 leading-tight text-xl">
-            <span class="font-extrabold text-[#37c6d0]">GATHER</span>
-            <span class="font-extrabold text-[#05223d]">ISLAND</span>
+            <span class="font-extrabold text-info-dark">GATHER</span>
+            <span class="font-extrabold text-info-dark">ISLAND</span>
           </h1>
         </div>
         <!-- 右側選單導航 -->
@@ -66,7 +65,7 @@ const navigateTo = (path: string) => {
     </header>
 
     <!-- 主要內容區域，flex-1 讓內容區域自動撐滿高度 -->
-    <el-main class="bg-gray-100 overflow-auto flex-1 p-0">
+    <el-main class="bg-gray-50 overflow-auto flex-1 p-0 pt-[64px]">
       <RouterView />
     </el-main>
 
