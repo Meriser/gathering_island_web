@@ -1,3 +1,38 @@
+// $colors 變數與 get-color() 函數已由 vite.config.ts 自動注入至全域
+// 使用內建的 get-color($category, $variant) 函數可從 $colors 對映取得指定顏色
+// 範例：get-color(primary, light) 取得 primary 主色的亮色值
+
+// 主題色
+// Primary
+$primary-light: get-color(primary, light);
+$primary: get-color(primary, DEFAULT);
+$primary-dark: get-color(primary, dark);
+
+// Secondary
+$secondary-light: get-color(secondary, light);
+$secondary: get-color(secondary, DEFAULT);
+$secondary-dark: get-color(secondary, dark);
+
+// Info
+$info-light: get-color(info, light);
+$info: get-color(info, DEFAULT);
+$info-dark: get-color(info, dark);
+
+// Success
+$success-light: get-color(success, light);
+$success: get-color(success, DEFAULT);
+$success-dark: get-color(success, dark);
+
+// Warning
+$warning-light: get-color(warning, light);
+$warning: get-color(warning, DEFAULT);
+$warning-dark: get-color(warning, dark);
+
+// Danger
+$danger-light: get-color(danger, light);
+$danger: get-color(danger, DEFAULT);
+$danger-dark: get-color(danger, dark);
+
 // 轉場效果時間
 $transition-base: 0.2s;
 // 縮放比例

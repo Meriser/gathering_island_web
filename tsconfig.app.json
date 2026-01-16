@@ -8,6 +8,7 @@
       "@/*":         ["./src/*"],
       "@api/*":      ["./src/api/*"],
       "@assets/*":   ["./src/assets/*"],
+      "@colors/*":   ["./src/colors/*"],
       "@components/*":["./src/components/*"],
       "@enum/*":     ["./src/enum/*"],
       "@hooks/*":    ["./src/hooks/*"],
