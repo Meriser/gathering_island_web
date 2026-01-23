@@ -1,3 +1,99 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* 基礎顏色 */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    
+    /* 主題色 */
+    /* primary: #C49B5C */
+    --primary: 35 50% 55%;
+    --primary-foreground: 0 0% 98%;
+    
+    /* secondary: #925D24 */
+    --secondary: 25 60% 35%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* muted - 使用較淺的灰色 */
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    
+    /* accent - 使用 info: #8B7355 */
+    --accent: 30 25% 50%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* destructive - 使用 danger: #FF5252 */
+    --destructive: 0 100% 66%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* 邊框和輸入框 */
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    
+    /* 焦點環 - 使用 primary */
+    --ring: 35 50% 55%;
+    
+    /* 圖表顏色 - 使用專案色系 */
+    --chart-1: 35 50% 55%;   /* primary */
+    --chart-2: 142 71% 45%;  /* success */
+    --chart-3: 45 100% 51%;  /* warning */
+    --chart-4: 0 100% 66%;   /* danger */
+    --chart-5: 30 25% 50%;   /* info */
+    
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    /* 基礎顏色 - 深色模式 */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* 主題色 - 深色模式版本 */
+    /* primary dark: #9C7A49 */
+    --primary: 30 40% 40%;
+    --primary-foreground: 0 0% 98%;
+    
+    /* secondary dark: #5E3C23 */
+    --secondary: 20 50% 25%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* muted - 深色模式 */
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    
+    /* accent dark: #5D4932 */
+    --accent: 25 30% 30%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* destructive dark: #C50E29 */
+    --destructive: 350 85% 42%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* 邊框和輸入框 - 深色模式 */
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    
+    /* 焦點環 - 深色模式 */
+    --ring: 30 40% 40%;
+    
+    /* 圖表顏色 - 深色模式 */
+    --chart-1: 30 40% 40%;   /* primary dark */
+    --chart-2: 142 85% 27%;  /* success dark */
+    --chart-3: 45 100% 39%;  /* warning dark */
+    --chart-4: 350 85% 42%;  /* danger dark */
+    --chart-5: 25 30% 30%;   /* info dark */
+    
+    --radius: 0.5rem;
+  }
+}
