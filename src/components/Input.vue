@@ -1,61 +1,75 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { View, Hide } from "@element-plus/icons-vue";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import type { LucideIcon } from 'lucide-vue-next';
 
-// 定義組件 props 的類型，並設置可選屬性
+// 定義組件 props 的類型
 interface Props {
-  type?: string;                        // 輸入框型態（如 text、password）
-  placeholder?: string;                 // 預設顯示提示文字
-  size?: "large" | "default" | "small"; // 輸入框尺寸
-  prefixIcon?: any;                     // 輸入框前綴 icon
-  clearable?: boolean;                  // 是否可清除輸入內容
+  type?: string;                         // 輸入框型態（如 text、password）
   inputClass?: string;                  // 輸入框 class 樣式
+  prefixIcon?: LucideIcon;              // 前綴 icon 元件
+  suffixIcon?: LucideIcon;              // 後綴 icon 元件
 }
 
 // 設定 props 預設值
 const props = withDefaults(defineProps<Props>(), {
   type: "text",
-  size: "default",
-  clearable: true,
-  inputClass: "w-[200px]",
 });
 
 // 聲明父組件 v-model 綁定的值（支持 undefined，因為清空時會是 undefined）
 const modelValue = defineModel<string | number | undefined>();
 
 // 控制密碼顯示/隱藏的狀態
-const showPassword = ref(false);
+const isShowPassword = ref(false);
 
-// 動態計算輸入框型態，若為密碼欄則依 showPassword 顯示密文或明文
+// 動態計算輸入框類型，若為密碼欄則依 isShowPassword 顯示密文或明文
 const inputType = computed(() => {
   if (props.type === "password") {
-    return showPassword.value ? "text" : "password";
+    return isShowPassword.value ? "text" : "password";
   }
   return props.type;
 });
 
-// 切換密碼顯示、隱藏
-function handleShowPassword() {
-  showPassword.value = !showPassword.value;
-}
+// 計算是否有前綴 icon
+const hasPrefixIcon = computed(() => !!props.prefixIcon);
+
+// 計算是否有後綴 icon（包括密碼切換 icon）
+const hasSuffixIcon = computed(() => !!props.suffixIcon);
+
+// 計算輸入框的 padding 類別
+const inputPaddingClass = computed(() => {
+  let paddingClass = "";
+  if (hasPrefixIcon.value) {
+    paddingClass += " pl-10 ";
+  }
+  if (hasSuffixIcon.value) {
+    paddingClass += " pr-10 ";
+  }
+  return paddingClass;
+});
 </script>
 
 <template>
-  <!-- v-bind="$attrs" 將父組件傳遞的所有屬性(如事件、原生屬性等)向下傳遞給 el-input 元件 -->
-  <el-input
-    v-bind="$attrs"
-    v-model="modelValue"
-    :type="inputType"
-    :placeholder="placeholder"
-    :size="size"
-    :prefix-icon="prefixIcon"
-    :clearable="clearable"
-    :class="inputClass"
-  >
-    <template v-if="type === 'password'" #suffix>
-      <el-icon class="cursor-pointer" @click="handleShowPassword">
-        <component :is="showPassword ? View : Hide" />
-      </el-icon>
-    </template>
-  </el-input>
+  <!-- 使用相對定位的容器包裹 Input，讓 icon 可以絕對定位在輸入框內 -->
+  <div class="relative w-full">
+    <!-- 前綴 icon -->
+    <div v-if="hasPrefixIcon"
+      class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground pointer-events-none z-10">
+      <component :is="prefixIcon" class="w-4 h-4" />
+    </div>
+
+    <!-- Input 元件 -->
+    <Input v-bind="$attrs" v-model="modelValue" :type="inputType" :class="cn(
+      'w-full',
+      inputPaddingClass,
+      inputClass
+    )" />
+
+    <!-- 後綴 icon -->
+    <div v-if="hasSuffixIcon"
+      class="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground pointer-events-none z-10">
+      <component :is="suffixIcon" class="w-4 h-4" />
+    </div>
+  </div>
 </template>

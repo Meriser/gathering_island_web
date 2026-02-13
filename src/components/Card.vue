@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Button from "@/components/Button.vue";
-import { Calendar } from "@element-plus/icons-vue";
+import { Clock } from "lucide-vue-next";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 const props = withDefaults(
   defineProps<{
@@ -22,35 +23,29 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <el-card class="card-border group bg-white">
+  <Card class="card-border group bg-white p-6">
     <!-- 圖片 -->
     <figure class="overflow-hidden rounded-md">
-      <img
-        :src="imageUrl"
-        :alt="`${title} 圖片`"
-        class="object-cover transition-transform duration-300 group-hover:scale-110"
-      />
+      <img :src="imageUrl" :alt="`${title} 圖片`"
+        class="object-cover transition-transform duration-300 group-hover:scale-110" />
     </figure>
+    <!-- 標題 -->
+    <CardTitle class="mt-2">{{ title }}</CardTitle>
     <!-- 內容區域 -->
-    <div class="mt-4">
-      <!-- 標題 -->
-      <h3 class="text-2xl font-bold text-secondary-dark">{{ title }}</h3>
+    <CardContent class="mt-4">
       <!-- 時間 -->
       <p class="text-sm text-secondary mt-2 flex items-center gap-2">
-        <Calendar class="w-[20px] text-primary" />
+        <Clock />
         {{ dateTime }}
       </p>
       <!-- 按鈕 -->
       <div class="flex justify-end">
-        <Button
-          class="rounded-full text-base bg-info text-white"
-          @click="emit('click')"
-        >
+        <Button variant="secondary" class="rounded-full text-base" @click="emit('click')">
           {{ buttonText }}
         </Button>
       </div>
-    </div>
-  </el-card>
+    </CardContent>
+  </Card>
 </template>
 
 <style scoped>

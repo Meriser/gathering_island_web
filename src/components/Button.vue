@@ -1,29 +1,35 @@
 <script setup lang="ts">
-import { ElButton } from "element-plus";
-import type { ButtonType } from "element-plus";
-import type { Component } from "vue";
+import { computed } from "vue";
+import Button from "@/components/ui/button/Button.vue";
+import Spinner from "@/components/ui/spinner/Spinner.vue";
 
-// ButtonProps 定義
-defineProps<{
-  type?: ButtonType;
-  size?: "large" | "default" | "small";
-  plain?: boolean;
-  round?: boolean;
-  circle?: boolean;
-  text?: boolean;
-  bg?: boolean;
-  link?: boolean;
-  icon?: string | Component;
+// 定義 Props
+interface Props {
   loading?: boolean;
-  disabled?: boolean;
-  autoInsertSpace?: boolean;
-  nativeType?: "button" | "submit" | "reset";
-}>();
+  loadingIndicator?: any;
+}
+
+// Props 預設值
+const props = withDefaults(defineProps<Props>(), {
+  loading: false,
+  loadingIndicator: Spinner,
+});
+
+// 計算 disabled 狀態
+const isDisabled = computed(() => props.loading);
+
+// 計算 LoadingIndicator
+const LoadingIndicator = computed(() => props.loadingIndicator);
 </script>
 
 <template>
-  <!-- 包裹 slot，支持自定義按鈕內容，並將所有 props 傳遞給 el-button -->
-  <el-button v-bind="$props">
-    <slot />
-  </el-button>
+  <Button :disabled="isDisabled" v-bind="$attrs">
+    <template v-if="loading">
+      <span class="flex items-center gap-2">
+        <component :is="LoadingIndicator" />
+        <slot name="loading">載入中...</slot>
+      </span>
+    </template>
+    <slot v-else />
+  </Button>
 </template>

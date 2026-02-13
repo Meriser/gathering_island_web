@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { Spinner } from "@/components/ui/spinner";
+
 // 定義 Loading Options 型別
 interface LoadingProps {
   text?: string;
@@ -8,13 +10,13 @@ interface LoadingProps {
 // Props 預設值
 const props = withDefaults(defineProps<LoadingProps>(), {
   text: "Loading...",
-  className: "text-sm text-gray-500",
+  className: "text-md text-gray-500",
 });
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center gap-1">
-    <el-loading-spinner class="text-primary" />
+  <div class="flex flex-col justify-center items-center gap-2">
+    <Spinner class="text-secondary size-10" />
     <p :class="props.className">{{ props.text }}</p>
   </div>
 </template>
