@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { HomeFilled, User } from "@element-plus/icons-vue";
 import dayjs from "dayjs";
-import { Calendar } from "@element-plus/icons-vue";
+import { Home, CalendarDays } from "lucide-vue-next";
 
 const router = useRouter();
 
@@ -11,12 +10,12 @@ const router = useRouter();
 const menuItems = ref([
   {
     title: "首頁",
-    icon: HomeFilled,
+    icon: Home,
     to: "/",
   },
   {
     title: "活動列表",
-    icon: Calendar,
+    icon: CalendarDays,
     to: "/event/list",
   },
 ]);
@@ -34,15 +33,11 @@ const navigateTo = (path: string) => {
   <div class="flex flex-col min-h-screen">
     <!-- 頂部 Header -->
     <header
-      class="min-h-[64px] fixed top-0 w-full z-50 bg-primary text-white flex items-center justify-between px-4 shadow-md"
-    >
+      class="min-h-[64px] fixed top-0 w-full z-50 bg-primary text-white flex items-center justify-between px-4 shadow-md">
       <!-- Header: 左側 Logo / 右側選單導航 -->
       <div class="flex items-center w-full justify-between">
         <!-- 左側 Logo -->
-        <div
-          class="flex items-center cursor-pointer hover-opacity"
-          @click="navigateTo('/')"
-        >
+        <div class="flex items-center cursor-pointer hover-opacity" @click="navigateTo('/')">
           <img src="/logo.svg" alt="Logo" class="w-[48px]" />
           <h1 class="flex gap-3 leading-tight text-xl">
             <span class="font-extrabold text-info-dark">GATHER</span>
@@ -50,24 +45,22 @@ const navigateTo = (path: string) => {
           </h1>
         </div>
         <!-- 右側選單導航 -->
-        <nav class="flex items-center gap-6">
-          <button
-            v-for="item in menuItems"
-            :key="item.to"
-            @click="navigateTo(item.to)"
-            class="bg-transparent text-white hover:text-yellow-300 px-3 py-2 rounded transition-colors flex items-center gap-1"
-          >
-            <component :is="item.icon" class="w-5 h-5" />
-            <span>{{ item.title }}</span>
-          </button>
+        <nav>
+          <ul class="flex items-center gap-4">
+            <li v-for="(item, index) in menuItems" :key="`${item.to}_${index}`" @click="navigateTo(item.to)"
+              class="cursor-pointer bg-transparent text-white hover:text-yellow-300 px-3 py-2 rounded transition-colors flex items-center gap-1">
+              <component :is="item.icon" class="w-5 h-5" />
+              <span>{{ item.title }}</span>
+            </li>
+          </ul>
         </nav>
       </div>
     </header>
 
     <!-- 主要內容區域，flex-1 讓內容區域自動撐滿高度 -->
-    <el-main class="bg-gray-50 overflow-auto flex-1 p-0 pt-[64px]">
+    <main class="bg-gray-50 overflow-auto flex-1 p-0 pt-[64px]">
       <RouterView />
-    </el-main>
+    </main>
 
     <!-- 底部 Footer -->
     <footer class="bg-secondary flex justify-center items-center">
