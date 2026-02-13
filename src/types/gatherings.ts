@@ -16,7 +16,7 @@ export type GatheringsType = {
   status: GatheringsStatusEnum;
   type: GatheringsTypeEnum;
   startTime: string;
-  dueDate: string;
+  deadline: string;
   isArchived: boolean;
   createdAt: string;
   updatedAt: string;
